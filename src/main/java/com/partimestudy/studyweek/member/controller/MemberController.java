@@ -5,10 +5,7 @@ import com.partimestudy.studyweek.member.dto.PostMemberRequest;
 import com.partimestudy.studyweek.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 회원컨트롤러.
@@ -17,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1")
 public class MemberController {
     private final MemberService memberService;
 
@@ -26,7 +24,7 @@ public class MemberController {
      * @param postMemberRequest 회원생성요청
      * @return Response
      */
-    @PostMapping("/api/members")
+    @PostMapping("/members")
     @ResponseStatus(HttpStatus.CREATED)
     public Response<Void> createMember(@RequestBody PostMemberRequest postMemberRequest){
         memberService.signIn(postMemberRequest);

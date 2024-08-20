@@ -6,6 +6,7 @@ import com.partimestudy.studyweek.member.exception.DuplicatedLoginIdException;
 import com.partimestudy.studyweek.member.repository.MemberRepository;
 import com.partimestudy.studyweek.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * {@inheritDoc}
@@ -30,7 +32,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = Member.builder()
                 .name(postMemberRequest.name())
                 .loginId(postMemberRequest.loginId())
-                .password(postMemberRequest.password())
+                .password(passwordEncoder.encode(postMemberRequest.password()))
                 .goal(postMemberRequest.goal())
                 .build();
 

@@ -45,6 +45,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!--Spring Security Core-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>6.3.1</version>
+        </dependency>
+
+
         <!--DB-->
         <dependency>
             <groupId>com.h2database</groupId>
