@@ -44,7 +44,7 @@ class MemberControllerTest extends BaseDocumentTest {
         doNothing().when(memberService).signIn(request);
 
 
-        mockMvc.perform(RestDocumentationRequestBuilders.post("/api/members")
+        mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/members")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{ \"name\": \"testn\", \"loginId\": \"testl\", \"password\": \"testp\", \"goal\": \"testg\"}"))
                 .andExpect(status().isCreated())
