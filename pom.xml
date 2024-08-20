@@ -30,6 +30,7 @@
         <java.version>21</java.version>
     </properties>
     <dependencies>
+        <!--Spring starter-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -38,13 +39,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
+        <!--DB-->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -55,12 +56,43 @@
             <artifactId>commons-dbcp2</artifactId>
         </dependency>
 
-
+        <!--util-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- spring rest docs 생성을 위한 디펜던시 -->
+        <dependency>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-mockmvc</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- restdocs spec(openapi spec) 문서를 생성하기 위한 디펜던시 -->
+        <dependency>
+            <groupId>com.epages</groupId>
+            <artifactId>restdocs-api-spec</artifactId>
+            <version>0.18.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.epages</groupId>
+            <artifactId>restdocs-api-spec-mockmvc</artifactId>
+            <version>0.18.2</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- restdocs spec(openapi spec) 문서를 생성하기 위한 디펜던시 -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.17.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
