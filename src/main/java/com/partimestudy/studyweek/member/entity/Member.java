@@ -2,10 +2,7 @@ package com.partimestudy.studyweek.member.entity;
 
 import com.partimestudy.studyweek.challenge.entity.Registration;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +10,8 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,4 +24,13 @@ public class Member {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Registration> registrations = new ArrayList<>();
 
+    /**
+     * 주문 추가 메서드.
+     *
+     * @param registration 주문
+     */
+    public void addRegistration(Registration registration){
+        this.registrations.add(registration);
+        registration.setMember(this);
+    }
 }

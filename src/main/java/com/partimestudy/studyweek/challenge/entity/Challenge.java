@@ -1,15 +1,16 @@
 package com.partimestudy.studyweek.challenge.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Challenge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +22,15 @@ public class Challenge {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "challenge", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Registration> registrations = new ArrayList<>();
+
+    /**
+     * 주문 추가 메서드.
+     *
+     * @param registration 주문
+     */
+    public void addRegistration(Registration registration){
+        this.registrations.add(registration);
+        registration.setChallenge(this);
+    }
 
 }
