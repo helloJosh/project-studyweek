@@ -4,7 +4,7 @@ spring:
       studyweek
 
   profiles:
-    active: dev
+    active: prod
 
   jpa:
     open-in-view: false
