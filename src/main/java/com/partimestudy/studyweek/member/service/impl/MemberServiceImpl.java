@@ -8,6 +8,7 @@ import com.partimestudy.studyweek.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 맴버 서비스 구현체.
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;

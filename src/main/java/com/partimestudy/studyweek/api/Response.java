@@ -72,6 +72,11 @@ public class Response<T> {
                 new Body<>(data)
         );
     }
+    public static <T> Response<T> success() {
+        return new Response<>(
+                new Header(true, HttpStatus.OK.value())
+        );
+    }
 
     public static <T> Response<T> deleteSuccess() {
         return new Response<>(

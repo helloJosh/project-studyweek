@@ -64,6 +64,23 @@
             <artifactId>commons-dbcp2</artifactId>
         </dependency>
 
+        <!--jwt-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.12.3</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.12.3</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.12.3</version>
+        </dependency>
+
         <!--util-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -100,6 +117,7 @@
             <artifactId>jsoup</artifactId>
             <version>1.17.2</version>
         </dependency>
+
 
     </dependencies>
 

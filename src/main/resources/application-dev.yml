@@ -5,3 +5,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+
+logging:
+  level:
+    com.partimestudy.studyweek: info

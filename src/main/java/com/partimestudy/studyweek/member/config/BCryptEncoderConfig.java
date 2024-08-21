@@ -1,4 +1,4 @@
-package com.partimestudy.studyweek.config;
+package com.partimestudy.studyweek.member.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
