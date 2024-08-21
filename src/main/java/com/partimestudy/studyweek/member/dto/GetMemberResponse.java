@@ -13,7 +13,7 @@ import lombok.Builder;
  */
 @Builder
 public record GetMemberResponse(
-        String id,
+        Long id,
         String name,
         String loginId,
         String password,

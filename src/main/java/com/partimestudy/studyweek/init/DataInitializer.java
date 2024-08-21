@@ -22,7 +22,7 @@ public class DataInitializer {
     public void init() {
         Member member = Member.builder()
                 .name("test")
-                .loginId("test")
+                .loginId("testUser")
                 .password(passwordEncoder.encode("1234"))
                 .goal("Get all test A")
                 .build();

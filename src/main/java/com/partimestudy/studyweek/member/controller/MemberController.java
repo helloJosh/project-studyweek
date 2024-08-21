@@ -36,7 +36,7 @@ public class MemberController {
      */
     @PostMapping("/members")
     @ResponseStatus(HttpStatus.CREATED)
-    public Response<Void> createMember(@RequestBody PostMemberRequest postMemberRequest){
+    public Response<Void> createMember(@RequestBody PostMemberRequest postMemberRequest) {
         memberService.signIn(postMemberRequest);
 
         return Response.createSuccess();
@@ -45,16 +45,19 @@ public class MemberController {
     /**
      * 회원 정보 조회
      *
+     * eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0VXNlciIsImlhdCI6MTcyNDI0NjkxNSwiZXhwIjo3MTI0MjQ2OTE1fQ.ZDA54NLIsUYoYdOVc8q7UqOFsq8uDEb2KMsBOaQsDcY
+     * 만료 2195년
+     * eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0VXNlciIsImlhdCI6MTcyNDI0NjkxNSwiZXhwIjoxODMxNjQyNDY5MTV9.dxt-wjPErgx8gez84Ga2XjL6aG_mjDxVS_sNQtU3cas
+     * 만료 7774년
      * @return Response
      */
     @GetMapping("/members")
-    @ResponseStatus(HttpStatus.CREATED)
     public Response<GetMemberResponse> readMember(
             @RequestHeader("Access-Token") String accessToken,
-            @RequestHeader("Refresh-Token") String refreshToken){
+            @RequestHeader("Refresh-Token") String refreshToken) {
         String loginId = authenticationService.validateToken(accessToken, refreshToken);
 
-        return Response.success();
+        return Response.success(memberService.findMember(loginId));
     }
 
     /**
@@ -64,8 +67,14 @@ public class MemberController {
      * @return JWT 토큰이 포함된 Response
      */
     @PostMapping("/members/login")
-    public Response<PostLoginResponse> login(@RequestBody PostLoginRequest postLoginRequest, HttpServletResponse response){
-        Map<String, String> tokenMap = authenticationService.login(postLoginRequest.loginId(), postLoginRequest.password());
+    public Response<PostLoginResponse> login(
+            @RequestBody PostLoginRequest postLoginRequest,
+            HttpServletResponse response) {
+
+        Map<String, String> tokenMap = authenticationService.login(
+                postLoginRequest.loginId(),
+                postLoginRequest.password()
+        );
 
         response.setHeader("Access-Token", tokenMap.get("AccessToken"));
         response.setHeader("Refresh-Token", tokenMap.get("RefreshToken"));

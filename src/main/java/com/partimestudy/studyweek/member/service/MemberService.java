@@ -1,5 +1,6 @@
 package com.partimestudy.studyweek.member.service;
 
+import com.partimestudy.studyweek.member.dto.GetMemberResponse;
 import com.partimestudy.studyweek.member.dto.PostMemberRequest;
 import com.partimestudy.studyweek.member.exception.DuplicatedLoginIdException;
 
@@ -16,4 +17,12 @@ public interface MemberService {
      * @exception DuplicatedLoginIdException 로그인아이디 중복시 에러반환
      */
     void signIn(PostMemberRequest postMemberRequest) throws DuplicatedLoginIdException;
+
+    /**
+     * 맴버 읽기.
+     *
+     * @param loginId 로그인 아이디
+     * @return 맴버 응답 레코드
+     */
+    GetMemberResponse findMember(String loginId);
 }

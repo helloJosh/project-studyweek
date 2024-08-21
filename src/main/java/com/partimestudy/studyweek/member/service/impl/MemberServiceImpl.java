@@ -1,8 +1,10 @@
 package com.partimestudy.studyweek.member.service.impl;
 
+import com.partimestudy.studyweek.member.dto.GetMemberResponse;
 import com.partimestudy.studyweek.member.dto.PostMemberRequest;
 import com.partimestudy.studyweek.member.entity.Member;
 import com.partimestudy.studyweek.member.exception.DuplicatedLoginIdException;
+import com.partimestudy.studyweek.member.exception.MemberNotFoundException;
 import com.partimestudy.studyweek.member.repository.MemberRepository;
 import com.partimestudy.studyweek.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -39,5 +41,22 @@ public class MemberServiceImpl implements MemberService {
                 .build();
 
         memberRepository.save(member);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GetMemberResponse findMember(String loginId) {
+        Member member = memberRepository.findMemberByLoginId(loginId)
+                .orElseThrow(()-> new MemberNotFoundException(loginId + "에 해당하는 맴버가 없습니다."));
+
+        return GetMemberResponse.builder()
+                .id(member.getId())
+                .name(member.getName())
+                .loginId(member.getLoginId())
+                .password(member.getPassword())
+                .goal(member.getGoal())
+                .build();
     }
 }
