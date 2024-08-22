@@ -17,11 +17,11 @@ import java.util.List;
  * @param challengeSchedule 스케쥴리스트
  */
 @Builder
-public record PostRegistrationResponse(
+public record GetRegistrationResponse(
         String challengeName,
         int challengeDeposit,
         int challengePaymentAmount,
         String status,
         LocalDateTime createdAt,
-        List<ChallengeScheduleRequest> challengeSchedule) {
+        List<ChallengeScheduleResponse> challengeSchedule) {
 }

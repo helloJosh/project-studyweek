@@ -1,8 +1,9 @@
 package com.partimestudy.studyweek.challenge.service.impl;
 
 import com.partimestudy.studyweek.challenge.dto.ChallengeScheduleRequest;
+import com.partimestudy.studyweek.challenge.dto.ChallengeScheduleResponse;
 import com.partimestudy.studyweek.challenge.dto.PostRegistrationRequest;
-import com.partimestudy.studyweek.challenge.dto.PostRegistrationResponse;
+import com.partimestudy.studyweek.challenge.dto.GetRegistrationResponse;
 import com.partimestudy.studyweek.challenge.entity.Challenge;
 import com.partimestudy.studyweek.challenge.entity.ChallengeSchedule;
 import com.partimestudy.studyweek.challenge.entity.Registration;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +31,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final MemberRepository memberRepository;
 
     @Override
-    public PostRegistrationResponse makeRegistration(PostRegistrationRequest postRegistrationRequest, String loginId) {
+    public void makeRegistration(PostRegistrationRequest postRegistrationRequest, String loginId) {
         Member member = memberRepository
                 .findMemberByLoginId(loginId)
                 .orElseThrow(()-> new MemberNotFoundException(loginId + "가 존재하지 않습니다."));
@@ -81,7 +83,6 @@ public class RegistrationServiceImpl implements RegistrationService {
         challenge.addRegistration(registration);
 
         for (ChallengeScheduleRequest challengeScheduleRequest : postRegistrationRequest.challengeSchedules()) {
-
             ChallengeSchedule challengeSchedule = ChallengeSchedule.builder()
                     .applyDate(challengeScheduleRequest.applyDate())
                     .hours(challengeScheduleRequest.hours())
@@ -91,14 +92,27 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
 
         registrationRepository.save(registration);
+    }
 
-        return PostRegistrationResponse.builder()
+    @Override
+    public GetRegistrationResponse findRegistration(Long registrationId) {
+        Registration registration = registrationRepository.findById(registrationId)
+                .orElseThrow(()->new RegistrationNotFoundException(registrationId + "가 존재하지 않습니다."));
+        List<ChallengeScheduleResponse> challengeScheduleResponses = new ArrayList<>();
+
+        for (ChallengeSchedule challengeSchedule : registration.getSchedules()) {
+            challengeScheduleResponses.add(
+                    new ChallengeScheduleResponse(challengeSchedule.getApplyDate(),challengeSchedule.getHours())
+            );
+        }
+
+        return GetRegistrationResponse.builder()
                 .challengeName(registration.getChallengeName())
                 .challengeDeposit(registration.getChallengeDeposit())
                 .challengePaymentAmount(registration.getChallengePaymentAmount())
                 .status(registration.getStatus())
                 .createdAt(registration.getCreatedAt())
-                .challengeSchedule(postRegistrationRequest.challengeSchedules())
+                .challengeSchedule(challengeScheduleResponses)
                 .build();
     }
 }
