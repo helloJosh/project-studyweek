@@ -90,6 +90,13 @@ public class Response<T> {
         );
     }
 
+    public static <T> Response<T> createSuccess(T data) {
+        return new Response<>(
+                new Header(true, HttpStatus.CREATED.value()),
+                new Body<>(data)
+        );
+    }
+
 
     public static Response<ErrorResponse> fail(int errorCode, ErrorResponse errorResponseForm) {
         return new Response<>(

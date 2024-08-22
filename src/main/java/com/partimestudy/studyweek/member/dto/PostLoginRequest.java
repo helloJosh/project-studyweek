@@ -1,5 +1,7 @@
 package com.partimestudy.studyweek.member.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 /**
@@ -10,6 +12,6 @@ import lombok.Builder;
  */
 @Builder
 public record PostLoginRequest(
-        String loginId,
-        String password) {
+        @NotBlank String loginId,
+        @NotBlank String password) {
 }
