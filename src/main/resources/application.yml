@@ -2,7 +2,6 @@ spring:
   application:
     name:
       studyweek
-
   profiles:
     active: prod
 
@@ -46,3 +45,4 @@ springdoc:
   swagger-ui:
     url: /docs/openapi-3.0.json
     path: /docs/swagger
+
