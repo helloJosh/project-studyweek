@@ -1,6 +1,7 @@
 # project-studyweek
 - 실행 : `java -jar studyweek.jar`
 - api 명세서 : `http://localhost:8080/docs/swagger-ui/index.html#/`
+- git readme 경로 : `https://github.com/helloJosh/project-studyweek`
 
 ## 1.ERD 설계
 ![erd.png](erd.png)
@@ -47,6 +48,8 @@
 #### Response
 - 공통처리 Response 클래스를 구현했습니다.
 - 공통에러처리 ErrorResponse클래스와 전역 ExceptionHandler를 구현했습니다.
+#### GlobalExceptionHandler
+- 모든 예외를 HTTP Error 코드에 맞춰 정리하였습니다.
 
 ## 7.auth package
 #### TokenRepository
@@ -62,7 +65,7 @@
 
 ## 8. member package
 #### Controller
-- 테스트를 통해서 RestDoc을 생성하였습니다.
+- 단위 테스트를 통해서 RestDoc을 생성하였습니다.
 - 회원가입, 회원조회, 로그인 url 핸들링을 담당합니다.
 
 #### Repository
@@ -74,6 +77,7 @@
 
 ## 9. challenge package
 #### Controller
+- 단위 테스트를 통해서 RestDoc을 생성하였습니다.
 - 인증 토큰을 검사하며, 챌린지 주문 요청, 주문 조회 url 핸들링을 담당합니다.
 
 #### Service
