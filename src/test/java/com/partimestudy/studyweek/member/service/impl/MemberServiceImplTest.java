@@ -9,7 +9,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -21,6 +23,8 @@ class MemberServiceImplTest {
 
     @InjectMocks
     private MemberServiceImpl memberService;
+    @Spy
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Test
     void signIn_shouldThrowException_whenLoginIdIsDuplicated() {
@@ -53,7 +57,6 @@ class MemberServiceImplTest {
 
         Member savedMember = memberCaptor.getValue();
         assertEquals("testLoginId", savedMember.getLoginId());
-        assertEquals("password", savedMember.getPassword());
         assertEquals("name", savedMember.getName());
         assertEquals("goal", savedMember.getGoal());
     }

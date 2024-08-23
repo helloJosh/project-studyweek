@@ -6,12 +6,14 @@ import com.partimestudy.studyweek.member.dto.GetMemberResponse;
 import com.partimestudy.studyweek.member.dto.PostLoginRequest;
 import com.partimestudy.studyweek.member.dto.PostLoginResponse;
 import com.partimestudy.studyweek.member.dto.PostMemberRequest;
+import com.partimestudy.studyweek.member.exception.PostLoginRequestFormException;
+import com.partimestudy.studyweek.member.exception.PostMemberRequestFormException;
 import com.partimestudy.studyweek.member.service.MemberService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Getter;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -36,7 +38,12 @@ public class MemberController {
      */
     @PostMapping("/members")
     @ResponseStatus(HttpStatus.CREATED)
-    public Response<Void> createMember(@RequestBody PostMemberRequest postMemberRequest) {
+    public Response<Void> createMember(@RequestBody @Valid PostMemberRequest postMemberRequest,
+                                       BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new PostMemberRequestFormException(bindingResult.getFieldError().toString());
+        }
+
         memberService.signIn(postMemberRequest);
 
         return Response.createSuccess();
@@ -68,8 +75,12 @@ public class MemberController {
      */
     @PostMapping("/members/login")
     public Response<PostLoginResponse> login(
-            @RequestBody PostLoginRequest postLoginRequest,
+            @RequestBody @Valid  PostLoginRequest postLoginRequest,
+            BindingResult bindingResult,
             HttpServletResponse response) {
+        if (bindingResult.hasErrors()) {
+            throw new PostLoginRequestFormException(bindingResult.getFieldError().toString());
+        }
 
         Map<String, String> tokenMap = authenticationService.login(
                 postLoginRequest.loginId(),

@@ -16,6 +16,9 @@ spring:
         use_sql_comments: true
         highlight_sql: true
         auto_quote_keyword: true
+#        jdbc:
+#          batch_size: 50
+#          order_inserts: true
 
   datasource:
     url: jdbc:h2:mem:testdb
@@ -41,3 +44,8 @@ logging:
 
 server:
   shutdown: graceful
+
+springdoc:
+  swagger-ui:
+    url: /docs/openapi-3.0.json
+    path: /docs/swagger

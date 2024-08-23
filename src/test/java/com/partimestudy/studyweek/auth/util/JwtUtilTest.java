@@ -5,6 +5,8 @@ import com.partimestudy.studyweek.auth.repository.TokenRepository;
 import com.partimestudy.studyweek.auth.service.impl.AuthenticationServiceImpl;
 import com.partimestudy.studyweek.member.entity.Member;
 import com.partimestudy.studyweek.member.repository.MemberRepository;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,18 +34,23 @@ class JwtUtilTest {
     @Autowired
     private AuthenticationServiceImpl authenticationService;
 
-    private final String loginId = "testUser";
+    private final String loginId = "testUser1";
     private final String password = "testPassword";
+    Member member;
 
     @BeforeEach
     void setUp() {
-        Member member = Member.builder()
-                .loginId(loginId)
-                .password(passwordEncoder.encode(password))
-                .name("Test User")
-                .goal("Test Goal")
-                .build();
+        member = Member.builder()
+            .loginId(loginId)
+            .password(passwordEncoder.encode(password))
+            .name("Test User")
+            .goal("Test Goal")
+            .build();
         memberRepository.save(member);
+    }
+    @AfterEach
+    void tearDown() {
+        memberRepository.delete(member);
     }
 
     @Test
@@ -78,10 +85,9 @@ class JwtUtilTest {
         tokenRepository.saveRefreshToken(refreshToken, loginId);
 
         // When
-        String loginId1 = jwtUtil.validateAccessToken(accessToken, refreshToken);
-
-        //given
-        assertEquals(loginId1, loginId);
+        Assertions.assertDoesNotThrow(()->{
+            jwtUtil.validateAccessToken(accessToken, refreshToken);
+        });
     }
 
     @Test

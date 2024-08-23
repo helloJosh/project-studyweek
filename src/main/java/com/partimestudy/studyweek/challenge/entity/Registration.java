@@ -2,14 +2,17 @@ package com.partimestudy.studyweek.challenge.entity;
 
 import com.partimestudy.studyweek.member.entity.Member;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Registration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,19 +21,33 @@ public class Registration {
     private String challengeName;
     private int challengeDeposit;
     private int challengePaymentAmount;
-    private String memberStatus;
-    private LocalDateTime applyDate;
-    private LocalDateTime createdAt;
-    private int hours;
+    private String status;
 
-    @ManyToOne
+    private LocalDateTime createdAt;
+
+    @Setter
+    @ManyToOne(optional = false)
     private Challenge challenge;
-    @ManyToOne
+    @Setter
+    @ManyToOne(optional = false)
     private Member member;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "registration", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<ChallengeSchedule> schedules = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    /**
+     * 챌린지 스케쥴 추가 메서드.
+     *
+     * @param challengeSchedules 첼린지 스케줄
+     */
+    public void addChallengeSchedules(List<ChallengeSchedule> challengeSchedules) {
+        this.schedules.addAll(challengeSchedules);
     }
 
 }
