@@ -11,13 +11,28 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 챌린지 컨트롤러.
+ *
+ * @author 김병우
+ */
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1")
 public class ChallengeController {
     private final RegistrationService registrationService;
     private final AuthenticationService authenticationService;
 
 
+    /**
+     * 챌린지 추가 요청 핸들러.
+     *
+     * @param postRegistrationRequest 주문 추가 요청 레코드
+     * @param bindingResult 바인딩리졸트
+     * @param accessToken 액세스토큰
+     * @param refreshToken 리프레쉬토큰
+     * @return
+     */
     @PostMapping("/challenges/registrations")
     public Response<Void> register(
             @RequestBody @Valid PostRegistrationRequest postRegistrationRequest,
@@ -35,6 +50,14 @@ public class ChallengeController {
         return Response.createSuccess();
     }
 
+    /**
+     * 챌린지 주문 조회 핸들러.
+     *
+     * @param registrationsId 주문 고유아이디
+     * @param accessToken 액세스토큰
+     * @param refreshToken 리프레쉬토큰
+     * @return 조회 응답 레코드
+     */
     @GetMapping("/challenges/registrations/{registrationsId}")
     public Response<GetRegistrationResponse> getRegistration(
             @PathVariable Long registrationsId,

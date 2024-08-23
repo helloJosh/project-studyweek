@@ -22,6 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+
+/**
+ * 주문 서비스 구현체.
+ *
+ * @author 김병우
+ */
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -30,6 +36,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final ChallengeRepository challengeRepository;
     private final MemberRepository memberRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void makeRegistration(PostRegistrationRequest postRegistrationRequest, String loginId) {
         Member member = memberRepository
@@ -56,7 +65,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
         for (Registration registration : registrations) {
             if (Objects.equals(registration.getChallenge().getId(), postRegistrationRequest.challengeId())) {
-                // 같은 챌리지 예외처리
                 throw new DuplicatedChallengeException(
                         "이미 해당 챌린지가 신청되었습니다. " + postRegistrationRequest.challengeName()
                 );
@@ -64,7 +72,6 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
 
         if (!challenge.getStatus().equals("ACTIVE")) {
-            // 활성화가 되지않은 상태일떄 예외처리
             throw new ChallengeNotActiveException(
                     "해당 챌린지는 비활성화 상태입니다 :" + postRegistrationRequest.challengeName()
             );
@@ -82,18 +89,24 @@ public class RegistrationServiceImpl implements RegistrationService {
         member.addRegistration(registration);
         challenge.addRegistration(registration);
 
+        List<ChallengeSchedule> challengeSchedules = new ArrayList<>();
+
         for (ChallengeScheduleRequest challengeScheduleRequest : postRegistrationRequest.challengeSchedules()) {
             ChallengeSchedule challengeSchedule = ChallengeSchedule.builder()
                     .applyDate(challengeScheduleRequest.applyDate())
                     .hours(challengeScheduleRequest.hours())
                     .build();
-
-            registration.addChallengeSchedule(challengeSchedule);
+            challengeSchedules.add(challengeSchedule);
         }
+
+        registration.addChallengeSchedules(challengeSchedules);
 
         registrationRepository.save(registration);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GetRegistrationResponse findRegistration(Long registrationId) {
         Registration registration = registrationRepository.findById(registrationId)

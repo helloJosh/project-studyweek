@@ -25,10 +25,10 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 public abstract class BaseDocumentTest {
-    //@Autowired
+    @Autowired
     protected ObjectMapper objectMapper;
 
-    //@Autowired
+    @Autowired
     protected MockMvc mockMvc;
 
     protected final String snippetPath = "{class-name}/{method-name}";

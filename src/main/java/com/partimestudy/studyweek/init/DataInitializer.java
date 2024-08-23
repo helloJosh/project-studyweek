@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 인메모리 DB 데이터 초기화 클래스.
  *
@@ -79,13 +82,16 @@ public class DataInitializer {
                 .build();
 
         memberRepository.save(member);
-        challengeRepository.save(challenge1);
-        challengeRepository.save(challenge2);
-        challengeRepository.save(challenge3);
-        challengeRepository.save(challenge4);
-        challengeRepository.save(challenge5);
-        challengeRepository.save(challenge6);
-        challengeRepository.save(challenge7);
-        challengeRepository.save(challenge8);
+        List<Challenge> challenges = new ArrayList<>();
+        challenges.add(challenge1);
+        challenges.add(challenge2);
+        challenges.add(challenge3);
+        challenges.add(challenge4);
+        challenges.add(challenge5);
+        challenges.add(challenge6);
+        challenges.add(challenge7);
+        challenges.add(challenge8);
+
+        challengeRepository.saveAll(challenges);
     }
 }

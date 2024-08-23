@@ -33,6 +33,7 @@ public class Registration {
     private Member member;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "registration", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<ChallengeSchedule> schedules = new ArrayList<>();
 
     @PrePersist
@@ -43,11 +44,10 @@ public class Registration {
     /**
      * 챌린지 스케쥴 추가 메서드.
      *
-     * @param challengeSchedule 첼린지 스케줄
+     * @param challengeSchedules 첼린지 스케줄
      */
-    public void addChallengeSchedule(ChallengeSchedule challengeSchedule) {
-        this.schedules.add(challengeSchedule);
-        challengeSchedule.setRegistration(this);
+    public void addChallengeSchedules(List<ChallengeSchedule> challengeSchedules) {
+        this.schedules.addAll(challengeSchedules);
     }
 
 }

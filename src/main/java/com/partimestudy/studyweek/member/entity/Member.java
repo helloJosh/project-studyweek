@@ -12,6 +12,14 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "login_id_unique",
+                        columnNames = {"login_id"}
+                )
+        }
+)
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +30,7 @@ public class Member {
     private String goal;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Registration> registrations = new ArrayList<>();
 
     /**

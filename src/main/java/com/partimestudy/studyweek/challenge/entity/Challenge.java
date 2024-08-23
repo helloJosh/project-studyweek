@@ -18,9 +18,11 @@ public class Challenge {
     private String name;
     private int minDeposit;
     private int maxDeposit;
+    @Setter
     private String status;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "challenge", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Registration> registrations = new ArrayList<>();
 
     /**
