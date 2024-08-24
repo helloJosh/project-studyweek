@@ -40,6 +40,7 @@
 
 # 4.API 명세서
 - Swagger UI + RestDoc을 사용하여 비즈니스적인 코드만 적고 api 명세서를 최대한 깔끔하게 만들었습니다.
+
 ![api-spec.png](api-spec.png)
 
 # 5. application.yml
