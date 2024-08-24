@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.partimestudy</groupId>
-    <artifactId>studyweek</artifactId>
+    <artifactId>studywork</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>studyweek</name>
-    <description>studyweek</description>
+    <name>studywork</name>
+    <description>studywork</description>
     <url/>
     <licenses>
         <license/>
@@ -122,7 +122,7 @@
     </dependencies>
 
     <build>
-        <finalName>studyweek</finalName>
+        <finalName>studywork</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
