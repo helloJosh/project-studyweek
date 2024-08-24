@@ -20,7 +20,7 @@
       validation-query: SELECT 1
 ```
 - 커넥션풀은 DBCP2로 쓰레드풀과 같은 숫자인 200개가 가장 최적화가 잘되지만 로컬의 하드웨어를 고려해 초기,최대 커넥션풀은 10개 유휴 최소,최대 커넥션풀도 10개로 설정하였습니다.
-- 커넥션에 대한 오버헤드를 줄이기 위해 test-on-borrow, validation-query를 추가했습니다.
+- 커넥션 에러에 대한 오버헤드를 줄이기 위해 test-on-borrow, validation-query를 추가했습니다.
 
 
 ## 3.Entity
