@@ -1,4 +1,4 @@
-# project-studyweek
+# project-studywork
 - 실행 : `java -jar studyweek.jar`
 - api 명세서 : `http://localhost:8080/docs/swagger-ui/index.html#/`
 - git readme 경로 : `https://github.com/helloJosh/project-studyweek`
